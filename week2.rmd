@@ -1,0 +1,65 @@
+---
+title: "Developing Data Products: Week 2 Assignment"
+author: "ij8585"
+date: "March 21, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(leaflet)
+```
+
+## Description
+
+This application visualizes locations visited by a selected technician throughout a selected day.
+
+
+## Vehicle Tracking Log
+
+The following table depictes raw data from a log file showing the times and lat/lon coordinates of the visited locations.  
+
+```{r inputData, echo=FALSE}
+
+vts <- data.frame(Time = c("08:05","09:35","10:40","12:12","13:55","14:20","15:40","16:21","16:55","17:32"),
+                  Location = c("Garage","A","B","C","D","E","F","G","H","I"),
+                  Latitude = c(36.993379,37.296120,37.302250,37.304695,37.330444,37.331721,37.333670,37.334025,37.335115,37.367719),
+                  Longitude = c(-121.569610,-121.872702,-121.968912,-121.966042,-121.969590,-121.968382,-121.982272,-121.982036,-121.982987,-122.001249   ),
+                  Col = c( "blue", "green", "green","green","green", "green", "green","green","green","green")
+
+)
+```
+
+ 
+
+
+```{r showData, echo=FALSE, comment = " "}
+row.names(vts) <- NULL
+head(vts[,-5])
+
+```
+
+## Vehicle Tracking Visualization
+
+The map shows location of the garage from which the technician has been dispatched (blue marker) and locations of the customers visited by the technician throughout the day (green markers). 
+
+```{r tracing, echo=FALSE}
+
+icons <- awesomeIcons(
+
+  iconColor = 'black',
+
+  markerColor = vts$Col,
+  text = ifelse(vts$Location == "Garage","",vts$Location )
+)
+
+
+vts %>%
+  leaflet(width = "100%") %>%
+  addTiles() %>%
+  addAwesomeMarkers(~Longitude, ~Latitude,  icon=icons,  label =  ifelse(vts$Location != "Garage", paste("Customer ",vts$Location), "Garage" ), labelOptions = labelOptions(noHide = FALSE), clusterOptions = markerClusterOptions() ) %>%
+  addLegend(labels = c("Garage","Customers"), colors = c("blue", "green"))
+
+```
+
+Enjoy it!
