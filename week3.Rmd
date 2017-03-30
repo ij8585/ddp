@@ -16,9 +16,7 @@ This application visualizes topographic data using heatmap implementation in plo
 
 ## Volcano data
 
-
 Mt Eden is one of about 50 volcanos in the Auckland volcanic field. This data set gives topographic information for the volcano. The format of the data is following:
-
 
 ```{r showData, echo=FALSE, comment = " "}
 
@@ -28,9 +26,7 @@ head(volcano[,1:12])
 
 
 ```{r volcano, echo=FALSE, warning=FALSE, message=FALSE , comment = " "}
-
-#  plot_ly(z = ~volcano, type = "heatmap")  
-  plot_ly(z = ~volcano/2, type = "surface")  
+  plot_ly(z = ~volcano, type = "surface")  
 
 ```
 
