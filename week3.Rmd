@@ -2,7 +2,7 @@
 title: "Developing Data Products: Week 3 Assignment"
 author: "ij8585"
 date: "March 29, 2017"
-output: html_document
+output: ioslides_presentation
 ---
 
 ```{r setup, include=FALSE}
@@ -24,6 +24,7 @@ head(volcano[,1:12])
 
 ```
 
+## Volcano Visualization
 
 ```{r volcano, echo=FALSE, warning=FALSE, message=FALSE , comment = " "}
   plot_ly(z = ~volcano, type = "surface")  
