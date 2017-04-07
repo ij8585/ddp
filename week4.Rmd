@@ -1,0 +1,74 @@
+---
+title: "Developing Data Products: Week 4 Assignment"
+author: "ij8585"
+date: "April 07, 2017"
+output: ioslides_presentation
+fontsize: 11pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Application Description
+
+This is simple data exploration application which presents the following information about a selected dataset:
+
+* data summary
+* data view
+* observations 
+
+
+
+The application has been implemented in Shiny using RStudio and is hosted on the
+[ShinyApps.io](https://ij8585.shinyapps.io/coursera/). The R source code is available at [GitHub](https://github.com/ij8585/ddp).
+
+
+There are currently three datasets available for data exploration: *cars*, *pressure*, *women*
+
+## Data Summary
+
+The basic statistics are computed using **summary** function i.e.:
+
+```{r r1, echo=TRUE, comment = " ", eval=TRUE}
+    summary(pressure)
+```
+
+In the Shiny server.R file the function is invoked as follows
+
+
+```{r r2, echo=TRUE, comment = " ", eval=FALSE, size="small"}
+  output$summary <- renderPrint({ summary( datasetInput()) })
+```
+
+*Note: The summary is based on the full dataset.*
+
+
+## Data View
+###### The data is visualized using **plot** function.
+```{r dv, echo=FALSE, warning=FALSE, message=FALSE, fig.width = 5, fig.align="center"}
+plot(cars, xlab = "Speed", ylab = "Stopping distance", las = 1)
+lines(lowess(cars$speed, cars$dist, f = 2/3, iter = 3), col = "red")
+```
+  
+###### *Note: the size of the points and color of the line can be changed in the application using the widgets in the control panel.*
+  
+
+## Observations
+
+The observations are displayed using **head** function i.e.:
+
+```{r ob1, echo=TRUE, comment = " ", eval=TRUE}
+    head(pressure,5)
+```
+
+In the Shiny server.R file the function is invoked as follows
+
+```{r ob2, echo=TRUE, comment = " ", eval=FALSE, size="small"}
+  output$view <- renderTable({ head(datasetInput(), n = input$obs) })
+```
+
+*Note: the number of the displayed observations can be changed in the control panel.*  
+
+ 
+  
