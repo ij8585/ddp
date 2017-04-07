@@ -45,8 +45,8 @@ In the Shiny server.R file the function is invoked as follows
 
 
 ## Data View
-###### The data is visualized using **plot** function.
-```{r dv, echo=FALSE, warning=FALSE, message=FALSE, fig.width = 5, fig.align="center"}
+###### The data points are visualized using **plot** function and **lowess** function is used to calculate the smoother line.
+```{r dv, echo=FALSE, warning=FALSE, message=FALSE, fig.width = 5,  fig.height = 4,  fig.align="center"}
 plot(cars, xlab = "Speed", ylab = "Stopping distance", las = 1)
 lines(lowess(cars$speed, cars$dist, f = 2/3, iter = 3), col = "red")
 ```
